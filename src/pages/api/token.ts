@@ -8,8 +8,10 @@ import { TokenResult } from "../../lib/types";
 const apiKey = process.env.LIVEKIT_API_KEY;
 const apiSecret = process.env.LIVEKIT_API_SECRET;
 
-const createToken = (userInfo: AccessTokenOptions, grant: VideoGrant) => {
+const createToken = (userInfo: AccessTokenOptions, grant: VideoGrant, hash: string) => {
   const at = new AccessToken(apiKey, apiSecret, userInfo);
+  const params = new URLSearchParams(hash.replace("#", ""));
+  at.metadata = params.get("case") ?? "";
   at.addGrant(grant);
   return at.toJwt();
 };
@@ -27,7 +29,7 @@ export default async function handleToken(
 
     const roomName = `room-${generateRandomAlphanumeric(4)}-${generateRandomAlphanumeric(4)}`;
     const identity = `identity-${generateRandomAlphanumeric(4)}`
-
+    const hash = req.query.hash as string || ""; // 从请求中获取 hash
     const grant: VideoGrant = {
       room: roomName,
       roomJoin: true,
@@ -36,7 +38,7 @@ export default async function handleToken(
       canSubscribe: true,
     };
 
-    const token = await createToken({ identity }, grant);
+    const token = await createToken({ identity }, grant,hash);
     const result: TokenResult = {
       identity,
       accessToken: token,
