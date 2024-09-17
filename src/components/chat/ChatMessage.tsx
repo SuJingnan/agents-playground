@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 type ChatMessageProps = {
   message: string;
   accentColor: string;
@@ -13,12 +15,13 @@ export const ChatMessage = ({
   isSelf,
   hideName,
 }: ChatMessageProps) => {
+   
   return (
-    <div className={`flex flex-col gap-1 ${hideName ? "pt-0" : "pt-6"}`}>
+    <div className={`flex flex-col gap-1 ${hideName ? 'pt-0' : 'pt-6'}`}>
       {!hideName && (
         <div
           className={`text-${
-            isSelf ? "gray-700" : accentColor + "-800 text-ts-" + accentColor
+            isSelf ? 'gray-700' : accentColor + '-800 text-ts-' + accentColor
           } uppercase text-xs`}
         >
           {name}
@@ -26,12 +29,15 @@ export const ChatMessage = ({
       )}
       <div
         className={`pr-4 text-${
-          isSelf ? "gray-300" : accentColor + "-500"
+          isSelf ? 'gray-300' : accentColor + '-500'
         } text-sm ${
-          isSelf ? "" : "drop-shadow-" + accentColor
+          isSelf ? '' : 'drop-shadow-' + accentColor
         } whitespace-pre-line`}
       >
+        {/* <ReactMarkdown>{message}</ReactMarkdown> */}
         {message}
+        <br />
+        <br />
       </div>
     </div>
   );
