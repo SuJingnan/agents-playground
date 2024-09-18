@@ -34,8 +34,17 @@ export const ChatMessage = ({
           isSelf ? '' : 'drop-shadow-' + accentColor
         } whitespace-pre-line`}
       >
-        {/* <ReactMarkdown>{message}</ReactMarkdown> */}
-        <div dangerouslySetInnerHTML={{ __html: message }} />
+
+        {/* {message.includes('```html') ? (
+          <div dangerouslySetInnerHTML={{ __html: message.replace(/```html|```/g, '') }} />
+        ) : message.includes('```markdown') ? (
+          <ReactMarkdown>{message.replace(/```markdown|```/g, '')}</ReactMarkdown>
+        ) : (
+          <div>{message}</div>
+        )} */}
+          {/* <ReactMarkdown>{message}</ReactMarkdown> */}
+       
+        <div dangerouslySetInnerHTML={{ __html: message }} />  
         <br />
         <br />
       </div>
