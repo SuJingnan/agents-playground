@@ -34,7 +34,10 @@ export const PlaygroundHeader = ({
     >
       <div className="flex items-center gap-3 basis-2/3">
         <div className="flex lg:basis-1/2">
-          <a href="https://livekit.io">{logo ?? <LKLogo />}</a>
+          {/* {logo ?? <LKLogo />} */}
+        <a href="https://strapi.shougan.net/" target="_blank">
+        <img src="https://assets.oneweb.mercedes-benz.com.cn/global-header/img/icon_wev_benz@2x.png" alt="Mercedes-Benz Logo" className="h-8 w-8" />
+          </a>  
         </div>
         <div className="lg:basis-1/2 lg:text-center text-xs lg:text-base lg:font-semibold text-white">
           {title}

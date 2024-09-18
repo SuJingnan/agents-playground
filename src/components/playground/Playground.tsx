@@ -244,12 +244,32 @@ export default function Playground({
     return (
       <div className="flex flex-col gap-4 h-full w-full items-start overflow-y-auto">
         {config.description && (
-          <ConfigurationPanelItem title="Description">
+          <ConfigurationPanelItem title="Product">
             {config.description}
           </ConfigurationPanelItem>
         )}
-
-        <ConfigurationPanelItem title="Settings">
+        {config.settings.inputs.camera && localVideoTrack && (
+          <ConfigurationPanelItem
+            title="Camera"
+            deviceSelectorKind="videoinput"
+          >
+            <div className="relative">
+              <VideoTrack
+                className="rounded-sm border border-gray-800 opacity-70 w-full"
+                trackRef={localVideoTrack}
+              />
+            </div>
+          </ConfigurationPanelItem>
+        )}
+        {localMicTrack && (
+          <ConfigurationPanelItem
+            title="Microphone"
+            deviceSelectorKind="audioinput"
+          >
+            <AudioInputTile frequencies={localMultibandVolume} />
+          </ConfigurationPanelItem>
+        )}
+        <ConfigurationPanelItem title="Services Info">
           {localParticipant && (
             <div className="flex flex-col gap-2">
               <NameValueRow
@@ -264,7 +284,7 @@ export default function Playground({
             </div>
           )}
         </ConfigurationPanelItem>
-        <ConfigurationPanelItem title="Status">
+        <ConfigurationPanelItem title="Services Status">
           <div className="flex flex-col gap-2">
             <NameValueRow
               name="Room connected"
@@ -300,27 +320,7 @@ export default function Playground({
             />
           </div>
         </ConfigurationPanelItem>
-        {localVideoTrack && (
-          <ConfigurationPanelItem
-            title="Camera"
-            deviceSelectorKind="videoinput"
-          >
-            <div className="relative">
-              <VideoTrack
-                className="rounded-sm border border-gray-800 opacity-70 w-full"
-                trackRef={localVideoTrack}
-              />
-            </div>
-          </ConfigurationPanelItem>
-        )}
-        {localMicTrack && (
-          <ConfigurationPanelItem
-            title="Microphone"
-            deviceSelectorKind="audioinput"
-          >
-            <AudioInputTile frequencies={localMultibandVolume} />
-          </ConfigurationPanelItem>
-        )}
+        
         <div className="w-full">
           <ConfigurationPanelItem title="Color">
             <ColorPicker
@@ -425,7 +425,7 @@ export default function Playground({
         className={`flex gap-4 py-4 grow w-full selection:bg-${config.settings.theme_color}-900`}
         style={{ height: `calc(100% - ${headerHeight}px)` }}
       >
-        <div className="flex flex-col grow basis-1/2 gap-4 h-full lg:hidden">
+        <div className="flex flex-col grow basis-1/4 gap-4 h-full lg:hidden">
           <PlaygroundTabbedTile
             className="h-full"
             tabs={mobileTabs}
@@ -439,7 +439,7 @@ export default function Playground({
               : "flex"
           }`}
         >
-          {config.settings.outputs.video && (
+          {false && config.settings.outputs.video && (
             <PlaygroundTile
               title="Video"
               className="w-full h-full grow"
@@ -462,7 +462,7 @@ export default function Playground({
         {config.settings.chat && (
           <PlaygroundTile
             title="Chat"
-            className="h-full grow basis-1/4 hidden lg:flex"
+            className="h-full grow basis-1/2 hidden lg:flex"
           >
             {chatTileContent}
           </PlaygroundTile>

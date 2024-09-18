@@ -24,7 +24,7 @@ export const ChatMessage = ({
             isSelf ? 'gray-700' : accentColor + '-800 text-ts-' + accentColor
           } uppercase text-xs`}
         >
-          {name}
+          {name == 'Agent' ? 'AI' : name}
         </div>
       )}
       <div
@@ -35,7 +35,7 @@ export const ChatMessage = ({
         } whitespace-pre-line`}
       >
         {/* <ReactMarkdown>{message}</ReactMarkdown> */}
-        {message}
+        <div dangerouslySetInnerHTML={{ __html: message }} />
         <br />
         <br />
       </div>
