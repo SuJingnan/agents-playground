@@ -36,16 +36,18 @@ export function TranscriptionTile({
 
   // store transcripts
   useEffect(() => {
-    agentMessages.segments.forEach((s) =>
+    console.time("AgentMessagesProcessing");
+    agentMessages.segments.forEach((s) => {
       transcripts.set(
-        s.id,
-        segmentToChatMessage(
-          s,
-          transcripts.get(s.id),
-          agentAudioTrack.participant
-        )
+      s.id,
+      segmentToChatMessage(
+        s,
+        transcripts.get(s.id),
+        agentAudioTrack.participant
       )
-    );
+      );
+    });
+    console.timeEnd("AgentMessagesProcessing");
     localMessages.segments.forEach((s) =>
       transcripts.set(
         s.id,
@@ -103,7 +105,7 @@ function segmentToChatMessage(
 ): ChatMessageType {
   const msg: ChatMessageType = {
     message: s.final ? s.text : `${s.text} ...`,
-    name: participant instanceof LocalParticipant ? "You" : "Agent",
+    name: participant instanceof LocalParticipant ? "You" : "Gen AI",
     isSelf: participant instanceof LocalParticipant,
     timestamp: existingMessage?.timestamp ?? Date.now(),
   };
