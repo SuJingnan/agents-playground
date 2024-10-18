@@ -462,7 +462,7 @@ export default function Playground({
         {config.settings.chat && (
           <PlaygroundTile
             title="Chat"
-            className="h-full grow basis-1/2 hidden lg:flex"
+            className="h-full grow basis-2/3 hidden lg:flex"
           >
             {chatTileContent}
           </PlaygroundTile>

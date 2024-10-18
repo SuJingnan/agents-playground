@@ -66,9 +66,9 @@ export const PlaygroundHeader = ({
           {connectionState === ConnectionState.Connecting ? (
             <LoadingSVG />
           ) : connectionState === ConnectionState.Connected ? (
-            "Disconnect"
+            "Stop Practice"
           ) : (
-            "Connect"
+            "Start Practice"
           )}
         </Button>
       </div>
